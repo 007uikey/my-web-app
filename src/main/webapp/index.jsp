@@ -3,7 +3,7 @@
     <title>CI/CD Demo</title>
 </head>
 <body>
-    <h1>🎉 Hello from Jenkins + Tomcat Deployment</h1>
+    <h1>Hello I'M Deepika and this my assignment10.</h1>
     <p>WAR deployed successfully!</p>
 </body>
 </html>
