@@ -1,0 +1,42 @@
+pipeline {
+    agent {
+        label 'slave'
+    }
+
+    environment {
+        BUCKET = 'jenkin-war-deployment'
+        WAR_NAME = 'myapp.war'
+        TOMCAT_WEBAPPS = '/mnt/server/apache-tomcat-10.1.54/webapps'
+    }
+
+    stages {
+
+        stage('Download WAR from S3') {
+            steps {
+                sh '''
+                aws s3 cp s3://$BUCKET/$WAR_NAME /tmp/$WAR_NAME
+                '''
+            }
+        }
+
+        stage('Deploy WAR') {
+            steps {
+                sh '''
+                sudo rm -rf $TOMCAT_WEBAPPS/myapp
+                sudo rm -f $TOMCAT_WEBAPPS/$WAR_NAME
+
+                sudo cp /tmp/$WAR_NAME $TOMCAT_WEBAPPS/
+                sudo /mnt/server/apache-tomcat-10.1.54/bin/shutdown.sh || true
+                sleep 5
+                sudo /mnt/server/apache-tomcat-10.1.54/bin/startup.sh
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'WAR deployed successfully on slave machine'
+        }
+    }
+}
