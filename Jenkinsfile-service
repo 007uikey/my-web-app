@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Install Apache and Deploy Page') {
+            steps {
+                sh '''
+                #!/bin/bash
+
+                yum install httpd -y
+                service httpd start
+                echo "hello, I'm Deepika, this is my assignment 15" > /var/www/html/index.html
+                chmod -R 777 /var/www/html/index.html
+                '''
+            }
+        }
+    }
+}
