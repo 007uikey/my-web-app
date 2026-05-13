@@ -10,7 +10,8 @@ pipeline {
 
         stage('clone repo') {
             steps {
-                git branch: 'main, url: 'https://github.com/007uikey/my-web-app.git'
+                git branch: 'main,
+                url: 'https://github.com/007uikey/my-web-app.git'
             }
 
 
