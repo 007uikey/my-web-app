@@ -3,26 +3,26 @@ pipeline {
 
     tools {
         maven 'Maven'
-
     }
 
     stages {
 
-        stage('clone repo') {
+        stage('Clone Repo') {
             steps {
-                git branch: 'main,
-                url: 'https://github.com/007uikey/my-web-app.git'
+                git branch: 'main',
+                    url: 'https://github.com/007uikey/my-web-app.git'
             }
-
+        }
 
         stage('Build WAR') {
             steps {
                 sh 'mvn clean package'
             }
+        }
 
         stage('Deploy WAR') {
             steps {
-                sshagent(credentials: ['ssh-key']){
+                sshagent(credentials: ['ssh-key']) {
 
                     sh '''
                     scp -o StrictHostKeyChecking=no \
@@ -31,7 +31,6 @@ pipeline {
 
                     ssh -o StrictHostKeyChecking=no \
                     ec2-user@15.206.67.73 \
-
                     'sudo rm -rf /mnt/server/apache-tomcat-10.1.55/webapps/myapp && \
                      sudo rm -rf /mnt/server/apache-tomcat-10.1.55/webapps/myapp.war && \
                      sudo cp /home/ec2-user/myapp.war /mnt/server/apache-tomcat-10.1.55/webapps/'
