@@ -3,7 +3,7 @@
     <title>CI/CD Demo</title>
 </head>
 <body>
-    <h1>Hello I'M Deepika and this  is my assignment 21.</h1>
-    <p>WAR deployed successfully!</p>
+    <h1>Hello I'M Deepika and this  is my assignment 17.</h1>
+    <p>WAR deployed successfully using pipeline script from SCM!</p>
 </body>
 </html>
